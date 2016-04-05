@@ -19,7 +19,6 @@ func main() {
 		params["PublicKey"] = public_key
 		params["Action"] = "SendSms"
 		params["Content"] = os.Args[2]
-		params["Content"] = os.Args[2]
 
 		phones := strings.Split(os.Args[1], "|")
 
