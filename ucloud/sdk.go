@@ -53,16 +53,3 @@ func Request(base_url string, params map[string]string) (string, error) {
 	}
 	return string(body), nil
 }
-
-func main() {
-
-	params := map[string]string{}
-	params["PublicKey"] = "ucloudwentianle@ucloud.cn14362721150002035991550"
-	params["Action"] = "GetRegion"
-	params["Signature"] = VerfyAc(params, "46e0ac4ce17816514aabc042d73fe4e4cae02ca6")
-	data, err := Request("https://api.ucloud.cn", params)
-	if err != nil {
-
-	}
-	fmt.Println(data)
-}
