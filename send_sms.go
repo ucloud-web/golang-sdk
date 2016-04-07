@@ -3,14 +3,25 @@ package main
 import "fmt"
 import "os"
 import "strings"
-import "./ucloud"
+import "./ucloud/config"
+import "./ucloud/sdk"
 
 func main() {
 
-	public_key := "xxxxxxxxxxxxxxxxxxx"
-	private_key := "xxxxxxxxxxxxxxxxxx"
-	base_url := "https://api.ucloud.cn"
-	project_id := "xxxxx"
+	cnf, err := config.NewConfig("ini", "./config.conf")
+	if err != nil {
+		fmt.Println("read config error", err)
+		return
+	}
+
+	fmt.Println("test")
+
+	public_key := cnf.String("public_key")
+	private_key := cnf.String("private_key")
+	base_url := cnf.String("base_url")
+	project_id := cnf.String("project_id")
+
+	fmt.Println(public_key, private_key, base_url, project_id)
 
 	args_len := len(os.Args)
 	if args_len >= 3 {
@@ -29,9 +40,9 @@ func main() {
 			params["ProjectId"] = project_id
 		}
 
-		params["Signature"] = ucloud.VerfyAc(params, private_key)
+		params["Signature"] = sdk.VerfyAc(params, private_key)
 
-		data, err := ucloud.Request(base_url, params)
+		data, err := sdk.Request(base_url, params)
 		if err != nil {
 			fmt.Println(err)
 		}
