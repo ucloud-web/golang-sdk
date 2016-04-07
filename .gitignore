@@ -8,3 +8,4 @@ core.*
 *.bak
 *.out
 config.conf
+send_sms
